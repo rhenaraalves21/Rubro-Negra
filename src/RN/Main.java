@@ -51,27 +51,28 @@ public class Main {
 
         FileOutputStream streamSaida = new FileOutputStream("src/saida.txt");
         OutputStreamWriter writer = new OutputStreamWriter(streamSaida);
+
         for (Valores valor: SUCouIMP) {
             if (valor.getAcao().equals("SUC")){
                 if(versoes[valor.getVersao()] != null &&
                         versoes[valor.getVersao()].buscar(valor.getValue(), versoes[valor.getVersao()]).getConteudo() != 0){
-                    System.out.println("SUC "+ valor.getValue() + " " + valor.getVersao());
-                    System.out.println(versoes[valor.getVersao()].Sucessor(valor.getValue(), versoes[valor.getVersao()]));
+                    writer.write("SUC "+ valor.getValue() + " " + (cont -1) + "\n");
+                    writer.write(versoes[cont- 1].Sucessor(valor.getValue(), versoes[cont- 1]) + "\n");
                 }else{
-                    System.out.println("SUC "+ valor.getValue() + " " + (cont -1));
-                    System.out.println(versoes[cont- 1].Sucessor(valor.getValue(), versoes[cont- 1]));
+                    writer.write("SUC "+ valor.getValue() + " " + (cont -1) + "\n");
+                    writer.write(versoes[cont- 1].Sucessor(valor.getValue(), versoes[cont- 1]) + "\n");
                 }
             }
             if (valor.getAcao().equals("IMP")){
                 if(versoes[valor.getValue()] != null){
                     System.out.println("IMP " + valor.getValue());
-                    System.out.println(versoes[valor.getValue()].imprimir());
-                    writer.write(versoes[valor.getValue()].imprimir());
-                    writer.close();
+                    writer.write("IMP " + valor.getValue() + "\n");
+                    writer.write(versoes[valor.getValue()].imprimir() + "\n");
+                    System.out.println("\n\n\n");
                 }
-
             }
         };
-
+        reader.close();
+        writer.close();
     }
 }

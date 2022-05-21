@@ -60,8 +60,7 @@ public class No {
             inOrdem(raiz.getDir());
         }
     }
-
-    List<String> listaInOrdem = new ArrayList<>();
+    List<String> listaInOrdem;
     private void visitar(No raiz) {
         String cor = raiz.isCor() ? "N" : "R";
         String conteudo = raiz.getConteudo() + "";
@@ -74,6 +73,7 @@ public class No {
     }
 
     public String imprimir(No raiz){
+        listaInOrdem = new ArrayList<>();
         inOrdem(raiz);
         StringBuilder result = new StringBuilder();
         for (String valor: listaInOrdem
@@ -81,5 +81,37 @@ public class No {
             result.append(valor);
         }
         return result.toString();
+    }
+
+    public void imp() {
+        if (dir != null) {
+            dir.imprimirArvore(true, "");
+        }
+        printValue();
+        if (esq != null) {
+            esq.imprimirArvore(false, "");
+        }
+    }
+
+    private void printValue() {
+        System.out.println(conteudo + "" + cor);
+    }
+
+    // use string and not stringbuffer on purpose as we need to change the indent at each recursion
+    private void imprimirArvore(boolean isRight, String indent) {
+        if (dir != null) {
+            dir.imprimirArvore(true, indent + (isRight ? "        " : " |      "));
+        }
+        System.out.print(indent);
+        if (isRight) {
+            System.out.print(" /");
+        } else {
+            System.out.print(" \\");
+        }
+        System.out.print("----- ");
+        printValue();
+        if (esq != null) {
+            esq.imprimirArvore(false, indent + (isRight ? " |      " : "        "));
+        }
     }
 }

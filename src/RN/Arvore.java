@@ -1,7 +1,4 @@
 package RN;
-
-import javax.swing.JOptionPane;
-
 public class Arvore{
 
     private No raiz;
@@ -85,11 +82,11 @@ public class Arvore{
             } else {
                 x = x.getDir();
             }
-            if (x == null) {
-                x = this.nil;
-            }
+//            if (x == null) {
+//                x = this.nil;
+//            }
         }
-        x = y;
+//        x = y;
         z.setPai(y);
         if (y.equals(this.nil)) {
             this.raiz = z;
@@ -192,8 +189,6 @@ public class Arvore{
             if (cor) {
                 this.RB_Delete_fixup(x);
             }
-        } else {
-            JOptionPane.showMessageDialog(null, "valor encontrado");
         }
     }
 
@@ -227,7 +222,6 @@ public class Arvore{
             } else {
                 w = x.getPai().getEsq();
                 if (!w.isCor()) {
-                    System.out.println("1");
                     w.setCor(true);
                     x.getPai().setCor(false);
                     this.righr_rotate(x.getPai());
@@ -313,6 +307,7 @@ public class Arvore{
         return buscado;
     }
     public String imprimir() {
+        this.raiz.imp();
         return this.raiz.imprimir(this.raiz);
     }
 }
