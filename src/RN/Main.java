@@ -11,7 +11,7 @@ public class Main {
         List<Valores> INCouREM = new ArrayList<>();
         List<Valores> SUCouIMP = new ArrayList<>();
 
-        FileInputStream stream = new FileInputStream("src/arquivo.txt");
+        FileInputStream stream = new FileInputStream("src/entrada.txt");
         InputStreamReader reader = new InputStreamReader(stream);
 
         BufferedReader br = new BufferedReader(reader);
@@ -25,7 +25,6 @@ public class Main {
             } else if (valorLinha.length == 2 && valorLinha[0].equals("IMP")) {
                 SUCouIMP.add(new Valores(valorLinha[0], Integer.parseInt(valorLinha[1]), -1));
             }
-
 
             linha = br.readLine();
         }
@@ -55,7 +54,7 @@ public class Main {
         for (Valores valor: SUCouIMP) {
             if (valor.getAcao().equals("SUC")){
                 if(versoes[valor.getVersao()] != null &&
-                        versoes[valor.getVersao()].buscar(valor.getValue(), versoes[valor.getVersao()]).getConteudo() != 0){
+                        versoes[valor.getVersao()].encontra(valor.getValue(), versoes[valor.getVersao()].getRaiz()).getConteudo() != 0){
                     writer.write("SUC "+ valor.getValue() + " " + (cont -1) + "\n");
                     writer.write(versoes[cont- 1].Sucessor(valor.getValue(), versoes[cont- 1]) + "\n");
                 }else{

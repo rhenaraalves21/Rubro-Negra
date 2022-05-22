@@ -72,6 +72,10 @@ public class Arvore{
         this.RB_Insert(n);
     }
 
+    /**
+     * Metodo responsavel por inserir o novo valor na arvore e pintar de vermelho
+     * @param z No a ser inserido
+     */
     private void RB_Insert(No z) {
         No y = this.nil;
         No x = this.raiz;
@@ -82,11 +86,11 @@ public class Arvore{
             } else {
                 x = x.getDir();
             }
-//            if (x == null) {
-//                x = this.nil;
-//            }
+            if (x == null) {
+                x = this.nil;
+            }
         }
-//        x = y;
+        x = y;
         z.setPai(y);
         if (y.equals(this.nil)) {
             this.raiz = z;
@@ -106,6 +110,9 @@ public class Arvore{
         this.raiz.setCor(true);
     }
 
+    /**
+     * Metodo responsavel por recolorir e fazer as rotacoes necessarias
+     */
     private void RB_insert_Fixup(No z) {
         while (!z.getPai().isCor()) {
             if (z.getPai() == z.getPai().getPai().getEsq()) {
@@ -145,6 +152,11 @@ public class Arvore{
         this.raiz.setCor(true);
     }
 
+    /**
+     * Metodo responsavel por substituir a subarvore do pai por outra subarvore
+     * @param u Antiga subarvore
+     * @param v Nova subarvore
+     */
     private void RB_tansplant(No u, No v) {
         if (u.getPai().equals(this.nil)) {
             this.raiz = v;
@@ -156,6 +168,10 @@ public class Arvore{
         v.setPai(u.getPai());
     }
 
+    /**
+     * Metodo responsavel por deletar o valor da arvore
+     * @param v valor a ser deletado
+     */
     public void RB_delete(int v) {
         No z = this.encontra(v, this.raiz);
         No y = z;
@@ -192,6 +208,9 @@ public class Arvore{
         }
     }
 
+    /**
+     * Metodo responsavel por realizar as rotacoes e recolorir a arvore
+     */
     private void RB_Delete_fixup(No x) {
         while (!x.equals(this.raiz) && x.isCor()) {
             No w;
@@ -248,6 +267,11 @@ public class Arvore{
         x.setCor(true);
     }
 
+    /**
+     * Metodo responsavel por buscar o sucessor de um No
+     * @param aux No a ser buscado
+     * @return Retorna o No sucessor
+     */
     private No sucessor(No aux) {
         while (aux.getEsq().getEsq() != null) {
             aux = aux.getEsq();
@@ -255,7 +279,13 @@ public class Arvore{
         return aux;
     }
 
-    private No encontra(int x, No pt) {
+    /**
+     * Metodo responsavel por buscar um elemento na arvore
+     * @param x valor a ser buscado
+     * @param pt subarvore onde o valor vai ser buscado
+     * @return Retorna null se a subarvore nao existir ou se o valor nao for encontrado; Retorna o valor se for encontrado
+     */
+    public No encontra(int x, No pt) {
         if (pt == null) {
             return null;
         } else {
@@ -279,9 +309,15 @@ public class Arvore{
         }
     }
 
+    /**
+     * Metodo responsavel por buscar o sucessor de um No na arvore
+     * @param valor elemento a ser buscado
+     * @param novaArvore arvore
+     * @return INF se nao possuir sucessor; O valor se ele possuir sucessor; Nao encontrado se o valor nao existir
+     */
     public String Sucessor(int valor, Arvore novaArvore){
-        No buscado = buscar(valor, novaArvore);
-        if(valor == buscado.getConteudo()){
+        No buscado = encontra(valor, novaArvore.getRaiz());
+        if(valor == buscado.getConteudo() && buscado != null){
             if (buscado.getDir().getConteudo() == 0){
                 return "INF";
             }else {
@@ -296,16 +332,10 @@ public class Arvore{
         }
     }
 
-    public No buscar(int valor, Arvore novaArvore){
-        No buscado = novaArvore.getRaiz();
-        while (buscado.getConteudo() != valor && buscado.getConteudo() != 0){
-            if (buscado.getEsq() != null && valor > buscado.getConteudo())
-                buscado = buscado.getDir();
-            else if (buscado.getEsq() != null && valor < buscado.getConteudo())
-                buscado = buscado.getEsq();
-        }
-        return buscado;
-    }
+    /**
+     * Metodo responsavel por imprimir a arvore
+     * @return Retorna uma mensagem com os valores ordenados
+     */
     public String imprimir() {
         this.raiz.imp();
         return this.raiz.imprimir(this.raiz);
